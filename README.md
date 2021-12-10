@@ -1,4 +1,4 @@
-Sam Nilsson
+Sam Nilsson   
 An implementation of A* pathfinding
 
 Patterns: 
