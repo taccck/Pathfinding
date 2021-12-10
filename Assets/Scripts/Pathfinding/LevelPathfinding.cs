@@ -5,7 +5,7 @@ public class LevelPathfinding : MonoBehaviour
 {
     public static LevelPathfinding current;
 
-    [SerializeField] private bool updateNodes = true; //contains only the obstacle layer
+    [SerializeField] private bool updateNodes = true; 
     [SerializeField] private LayerMask levelMaks; //contains all layers that can collide with the player
     [SerializeField] private LayerMask obstacleMask; //contains only the obstacle layer
 
@@ -26,6 +26,7 @@ public class LevelPathfinding : MonoBehaviour
         foreach (Node n in Grid )
         {
             if(!n.modified) continue;
+            n.modified = false;
             n.gCost = Mathf.Infinity;
             n.hCost = Mathf.Infinity;
             n.parent = null;
