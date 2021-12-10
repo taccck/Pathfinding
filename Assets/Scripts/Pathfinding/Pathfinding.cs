@@ -17,17 +17,18 @@ public static class Pathfinding
             {
                 Node n = LevelPathfinding.current.Grid[i];
                 if (closedSet.Contains(n)) continue;
-                
+
                 if (LevelPathfinding.current.FatCheck(n.GetPositionWithOffset(r), currNode.GetPositionWithOffset(r), r))
                     continue;
-                
+
                 float hCost = Vector3.Distance(n.position, end.position);
                 float gCost = currNode.gCost + Vector3.Distance(currPos, n.position);
                 if (hCost + gCost >= n.FCost) continue;
-                
+
                 n.hCost = hCost;
                 n.gCost = gCost;
                 n.parent = currNode;
+                n.modified = true;
                 openSet.Add(n);
             }
 
@@ -45,9 +46,9 @@ public static class Pathfinding
             openSet.Remove(currNode);
         }
 
-        LevelPathfinding.current.ResetNodes(openSet, closedSet);
-
-        return RetraceSteps();
+        Vector3[] path = RetraceSteps();
+        LevelPathfinding.current.ResetNodes();
+        return path;
 
         Vector3[] RetraceSteps()
         {

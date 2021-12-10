@@ -6,13 +6,18 @@ public class PathTesting : MonoBehaviour
     [SerializeField] private float r = 1f;
     [SerializeField] private float speed = 4f;
 
+    private Vector3? _walkPoint;
     private PathRequester _pathing;
 
     private void FixedUpdate()
     {
-        Vector3? moveTo = _pathing.GetWalkPoint();
-        if (moveTo == null) return;
-        transform.Translate(((Vector3)moveTo - transform.position).normalized * Time.deltaTime * speed);
+        if (_walkPoint == null) return;
+        transform.Translate(((Vector3)_walkPoint - transform.position).normalized * Time.deltaTime * speed);
+    }
+
+    private void UpdatePath()
+    {
+        _walkPoint = _pathing.WalkPoint;
     }
 
     private void Awake()
@@ -22,6 +27,12 @@ public class PathTesting : MonoBehaviour
 
     private void OnEnable()
     {
+        _pathing.onPathUpdated += UpdatePath;
         _pathing.SetPath(transform.position, goal.position, r);
+    }
+
+    private void OnDisable()
+    {
+        _pathing.onPathUpdated -= UpdatePath;
     }
 }

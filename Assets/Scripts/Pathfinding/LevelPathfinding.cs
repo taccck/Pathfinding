@@ -21,18 +21,14 @@ public class LevelPathfinding : MonoBehaviour
         return (start, end);
     }
 
-    public void ResetNodes(IEnumerable<Node> openSet, IEnumerable<Node> closedSet)
+    public void ResetNodes()
     {
-        foreach (Node n in openSet)
+        foreach (Node n in Grid )
         {
+            if(!n.modified) continue;
             n.gCost = Mathf.Infinity;
             n.hCost = Mathf.Infinity;
-        }
-
-        foreach (Node n in closedSet)
-        {
-            n.gCost = Mathf.Infinity;
-            n.hCost = Mathf.Infinity;
+            n.parent = null;
         }
     }
 

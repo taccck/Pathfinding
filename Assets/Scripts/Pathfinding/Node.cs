@@ -8,19 +8,18 @@ public class Node
     public Node parent; //the node that comes before it in a path, needed for backtracking 
     public Vector3 position;
     public int[] neighbours; //nodes that can be moved to from this node
+    public bool modified = false;
 
     private Ray _toObstacle;
 
-    private readonly Vector3 _relativePos;
     private readonly Vector3 _relativePosNoHeight;
 
     public float FCost => hCost + gCost;
 
     public Node(Vector3 obstaclePos, Vector3 position)
     {
-        _relativePos = position;
         _relativePosNoHeight = new Vector3(position.x, 0f, position.z);
-        this.position = _relativePos + obstaclePos;
+        this.position = position + obstaclePos;
 
         _toObstacle = new Ray(obstaclePos, _relativePosNoHeight);
     }
