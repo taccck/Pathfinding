@@ -11,8 +11,8 @@ Singleton
 Observer    
   In Assets > Scripts > Character > PathRequester.cs as PathIndex I invoke an event system from the path indexes setter. Whenever an object should move to the next point in its path it will have a method called for it. The path testing script in the same folder has a method subscribing to the event system which updates the direction it's walking in. In my current project this is an antipattern because I can get the walk direction in update directly from the path request since they’re on the same game object. This pattern works better when there are multiple subscribers and the listener and the subscribers aren't on the same game object.  
 
-Dirty Flag
+Dirty Flag    
   In Assets > Scripts > Pathfinding > LevelPathfinding.cs > ResetNodes() I use dity flag by looping through all nodes and checking if they’re marked as modified and only if their values get reset. This is also an antipattern because I could reset the value of all nodes and it wouldn't make a difference or I could pass in the close and open sets from the pathfinding script and only reset their nodes since they contain all the modified nodes. 
 
-Dependency Injection
+Dependency Injection    
   In Assets > Scripts > Pathfinding > LevelPathfinding.cs > GetClosestNode() I pass a node array to the method through its parameter to find which of them is closest to the position. I could also make a private node array in the class but I feel that makes the logic less clear. Also, if I did that for all values I pass on in parameters the amount of variables at the top of the file would skyrocket and give me a headache. 
